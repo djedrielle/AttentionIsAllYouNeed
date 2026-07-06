@@ -8,10 +8,10 @@ import torch
 import torch.nn as nn
 
 src_vocab = tgt_vocab = 13
-N = 2
-d_model = 64
-h = 4
-d_ff = 256
+N = 6
+d_model = 512
+h = 8
+d_ff = 2048
 dropout = 0.1
 
 # Instanciar el modelo y el optimizador
@@ -20,24 +20,7 @@ model.train()
 optimizador = torch.optim.Adam(model.parameters(), lr=1e-3)
 criterio = nn.CrossEntropyLoss(ignore_index = 0)
 
-@torch.no_grad()                          # no calculamos gradientes: solo miramos
-def generar_copia(model, src, bos=1):
-    model.eval()                          # apaga el dropout (predicciones estables)
-    # 1. El encoder procesa src UNA sola vez -> memory
-    memory = model.Encoder(model.PE(model.src_embed(src)), None)
-    # 2. Arrancamos la respuesta con solo BOS
-    ys = torch.full((src.size(0), 1), bos, dtype=torch.long)
-    # 3. Generamos casilla por casilla, L+1 pasos (los símbolos + EOS)
-    for _ in range(src.size(1) + 1):
-        tgt_mask = generar_mascara(ys.size(1))
-        dec = model.Decoder(model.PE(model.tgt_embed(ys)), memory, tgt_mask, None)
-        logits = model.Linear(dec[:, -1])            # solo la ÚLTIMA posición
-        siguiente = logits.argmax(dim=-1, keepdim=True)
-        ys = torch.cat([ys, siguiente], dim=1)       # la anexamos y repetimos
-    model.train()                         # volvemos a modo entrenamiento
-    return ys
-
-for epoca in range(3000):
+for epoca in range(2000):
     # Setup Parametros
     src, tgt_in, tgt_out = generar_datos(32, 10)
     tgt_mask = generar_mascara(tgt_in.size(1))
@@ -56,7 +39,4 @@ for epoca in range(3000):
         aciertos = (predicciones == tgt_out).float()
         accuracy = aciertos.mean().item()         
         print(f'Paso {epoca:>4} | loss -> {loss.item():.4f} | accuracy -> {accuracy:.2%}')
-        muestra_src, _, _ = generar_datos(1, 10)      # un ejemplo nuevo
-        generado = generar_copia(model, muestra_src)
-        print(f'  src      -> {muestra_src[0].tolist()}')
-        print(f'  generado -> {generado[0, 1:].tolist()}')   # [1:] quita el BOS
+
