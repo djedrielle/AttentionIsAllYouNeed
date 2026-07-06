@@ -8,10 +8,10 @@ import torch
 import torch.nn as nn
 
 src_vocab = tgt_vocab = 13
-N = 6
-d_model = 512
-h = 8
-d_ff = 2048
+N = 2
+d_model = 64
+h = 4
+d_ff = 256
 dropout = 0.1
 
 # Instanciar el modelo y el optimizador
