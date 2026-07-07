@@ -40,3 +40,4 @@ for epoca in range(2000):
         accuracy = aciertos.mean().item()         
         print(f'Paso {epoca:>4} | loss -> {loss.item():.4f} | accuracy -> {accuracy:.2%}')
 
+torch.save(model.state_dict(), "copiar.pt")
