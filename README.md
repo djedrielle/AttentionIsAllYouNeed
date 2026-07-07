@@ -1,7 +1,7 @@
 # Creación de Un Transformer desde cero
 
-### 26/6/26
+Este proyecto de está desarrollando con fines educativos. La intención principal es conocer en detalle cómo funciona un Transformer y familiarizarme con el mundo de los agentes. El paper *Attention is All You Need* se está utilizando como manual para desarrollar la estructura del Transformador y *Claude* se está utilizando como agente auxiliar para la explicación de conceptos y desarrollo de ciertas partes del código.
 
-Se terminó la estructura del Trasnformer. Ahora los someteré a un pequeño entrenamiento para ver cómo se comporta. 
-
-**Tarea 1: le damos una secuencia aleatoria y el modelo debe producir **la misma** (copiarla).**
+## Función de esta documentación
+Esta documentación busca mostrar qué se va haciendo en este proyecto. No existe estructura definida, simplemente se mencionará qué va sugiendo sobre la marcha.
+En el archivo xxx están los apuntes que tomé durante el desarrollo del código del Transformer, estos son apuntes explícan el papel de cada componente en la arquitectura del Transformer. 
