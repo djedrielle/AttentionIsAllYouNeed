@@ -14,6 +14,11 @@ h = 4
 d_ff = 256
 dropout = 0.1
 
+tarea = input("¿Qué tarea quieres que el modelo aprenda? (copiar/invertir/ordenar) -> ")
+if tarea != "copiar" and tarea != "invertir" and tarea != "ordenar":
+    print("Debe ingresar una opción valida... (copiar/invertir/ordenar), se le enseñará a copiar al modelo... este es el default.")
+    tarea = "copiar"
+
 # Instanciar el modelo y el optimizador
 model = Transformer(src_vocab, tgt_vocab, N, d_model, h, d_ff, dropout)
 model.train()
@@ -22,7 +27,7 @@ criterio = nn.CrossEntropyLoss(ignore_index = 0)
 
 for epoca in range(2000):
     # Setup Parametros
-    src, tgt_in, tgt_out = generar_datos(32, 10)
+    src, tgt_in, tgt_out = generar_datos(32, 10, tarea)
     tgt_mask = generar_mascara(tgt_in.size(1))
     # forward
     logits = model(src, tgt_in, None, tgt_mask)
@@ -40,4 +45,4 @@ for epoca in range(2000):
         accuracy = aciertos.mean().item()         
         print(f'Paso {epoca:>4} | loss -> {loss.item():.4f} | accuracy -> {accuracy:.2%}')
 
-torch.save(model.state_dict(), "copiar.pt")
+torch.save(model.state_dict(), f'{tarea}.pt')

@@ -9,7 +9,7 @@ ruta_json = os.path.join(directorio_base, 'vocab.json')
 with open(ruta_json, 'r', encoding='utf-8') as file:
     vocab = json.load(file)
 
-def generar_datos(batch, longitud):
+def generar_datos(batch, longitud, tarea):
     array = []
     for _ in range(batch):
         sec = []
@@ -19,11 +19,18 @@ def generar_datos(batch, longitud):
         array.append(sec)
     src = torch.tensor(array)
     
-    # Agregar BOS al inicio del array
-    for batch in array:
-        batch.insert(0, 1)
+    if tarea == "copiar":
+        for batch in array:
+            batch.insert(0, 1)
+    elif tarea == "invertir":
+        for batch in array:
+            batch.reverse()
+            batch.insert(0, 1)
+    elif tarea == "ordenar":
+        for batch in array:
+            batch.sort()
+            batch.insert(0, 1)
     tgt_in = torch.tensor(array)
-
     # Eliminar BOS al inicio y agregar EOS al final del array
     for batch in array:
         del batch[0]
