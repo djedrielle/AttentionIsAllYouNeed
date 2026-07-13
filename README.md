@@ -1,4 +1,4 @@
-# Creación de Un Transformer desde cero
+# Attention Is All You Need Implementation (Educational Purposes)
 
 Este proyecto de está desarrollando con fines educativos. La intención principal es conocer en detalle cómo funciona un Transformer y familiarizarme con el mundo de los agentes. El paper *Attention is All You Need* se está utilizando como manual para desarrollar la estructura del Transformador y *Claude* se está utilizando como agente auxiliar para la explicación de conceptos y desarrollo de ciertas partes del código.
 
