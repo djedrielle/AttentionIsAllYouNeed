@@ -25,7 +25,7 @@ model.train()
 optimizador = torch.optim.Adam(model.parameters(), lr=1e-3)
 criterio = nn.CrossEntropyLoss(ignore_index = 0)
 
-for epoca in range(2000):
+for epoca in range(15000):
     # Setup Parametros
     src, tgt_in, tgt_out = generar_operacion(32)
     src_mask, tgt_mask = generar_mascara_operacion(src, tgt_in)
@@ -47,3 +47,26 @@ for epoca in range(2000):
         print(f'Paso {epoca:>5} | loss -> {loss.item():.4f} | accuracy -> {accuracy.item():.2%}')
 
 torch.save(model.state_dict(), 'suma.pt')
+
+'''
+Paso     0 | loss -> 2.8568 | accuracy -> 6.30%
+Paso   100 | loss -> 2.3457 | accuracy -> 22.22%
+Paso   200 | loss -> 2.3134 | accuracy -> 24.62%
+Paso   300 | loss -> 2.3401 | accuracy -> 23.36%
+Paso   400 | loss -> 2.3095 | accuracy -> 24.06%
+Paso   500 | loss -> 2.2830 | accuracy -> 25.40%
+Paso   600 | loss -> 2.2864 | accuracy -> 23.19%
+Paso   700 | loss -> 2.3491 | accuracy -> 23.19%
+Paso   800 | loss -> 2.2941 | accuracy -> 23.70%
+Paso   900 | loss -> 2.3571 | accuracy -> 22.07%
+Paso  1000 | loss -> 2.3373 | accuracy -> 22.22%
+Paso  1100 | loss -> 2.3495 | accuracy -> 21.05%
+Paso  1200 | loss -> 2.3195 | accuracy -> 24.24%
+Paso  1300 | loss -> 2.3079 | accuracy -> 23.70%
+Paso  1400 | loss -> 2.3171 | accuracy -> 22.86%
+Paso  1500 | loss -> 2.3065 | accuracy -> 23.02%
+Paso  1600 | loss -> 2.2940 | accuracy -> 23.02%
+Paso  1700 | loss -> 2.2919 | accuracy -> 23.36%
+Paso  1800 | loss -> 2.2272 | accuracy -> 28.80%
+Paso  1900 | loss -> 2.2229 | accuracy -> 23.70%
+'''
