@@ -15,5 +15,7 @@ En el archivo xxx están los apuntes que tomé durante el desarrollo del código
 4. Sumar dos números dígito a dígito (con acarreo).
 
 En un futuro tengo planeado someterlo a tareas más complejas como que sea capaz de hacer traducciones entre lenguajes, resumir texto, hacer correcciones gramáticales o un chatbot simple.
----
+
 *14 de julio, 2026*: Se logró implementar todas las tareas sintéticas con éxito. La lección más importante que aprendí en este sprint fue que la cantidad de parámetros del modelo representa su potencial para aprender; no tiene sentido trabajar con `d_model = 512` y `N = 8` en tareas sintéticas sencillas. En un momento durante el entrenamiento de suma el accuracy del modelo no pasaba de 50%, inicialmente pensé que la solución llegaría luego de aumentar la cantidad de parámetros, pero no fue así, este empeoró de hecho (< 30%, debido a la ausencia de una estrategia de entrenamiento afin a los parámetros que se manejaban). La solución fue simplemente aumentar la cantidad de iteraciones de entrenamiento de 2,000 a 10,000... Sencillo.
+
+*19 de julio, 2026*: Con la intención de seguir la línea original del paper y acercarme un poco más a las implementaciones reales, se le enseñará al Transformer a traducir texto entre inglés y español. Para conseguir esto se utilizará el dataset xxx y la tokenización se hará a nivel de caracter.
