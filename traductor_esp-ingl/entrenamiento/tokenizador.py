@@ -8,8 +8,8 @@ def construir_vocab(frases):
     caracteres = sorted(caracteres)       
 
     
-    char_a_id = {"<PAD>": 0, "<BOS>": 1, "<EOS>": 2}
-    for i, c in enumerate(caracteres, start=3):
+    char_a_id = {"<PAD>": 0, "<BOS>": 1, "<EOS>": 2, "<UNK>": 3}
+    for i, c in enumerate(caracteres, start=4):
         char_a_id[c] = i
 
     id_a_char = {i: c for c, i in char_a_id.items()}
@@ -30,5 +30,24 @@ with open('../spa-eng/spa.txt', 'r', encoding='utf-8') as archivo:
 en_char_a_id, en_id_a_char = construir_vocab(frases_en)
 es_char_a_id, es_id_a_char = construir_vocab(frases_es)
 
-print("Vocabulario inglés:", len(en_char_a_id), "tokens")
-print("Vocabulario español:", len(es_char_a_id), "tokens")
+def encode(frase, idioma):
+    # frase debe ser un string e idioma debe ser "es" o "en"
+    ids = []
+    if (idioma == "es"):
+        for caracter in frase:
+            ids.append(es_char_a_id.get(caracter, es_char_a_id["<UNK>"]))
+    elif (idioma == "en"):
+        for caracter in frase:
+            ids.append(es_char_a_id.get(caracter, es_char_a_id["<UNK>"]))
+    return ids
+
+def decode(ids, idioma):
+    tabla = es_id_a_char if idioma == "es" else en_id_a_char
+    frase = ""
+    for id in ids:
+        if id == 2:      # EOS -> terminar
+            break
+        if id in (0, 1): # PAD / BOS -> ignorar
+            continue
+        frase += tabla[id]
+    return frase
